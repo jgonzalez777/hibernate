@@ -6,7 +6,10 @@
 
   <persistence-unit name="aplicacion">
   
-  	<class>mx.hibernate.model.Empleado</class>  
+  	<class>mx.hibernate.model.Empleado</class>
+  	<class>mx.hibernate.model.Autor</class>
+  	<class>mx.hibernate.model.Libro</class>
+  	  
     <properties>
         <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
         <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test" />

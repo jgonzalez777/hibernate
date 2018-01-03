@@ -3,10 +3,15 @@ package mx.hibernate.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "EMPLEADO")
@@ -26,6 +31,12 @@ public class Empleado implements Serializable{
 	
 	@Column(name = "FECHA_NACIMIENTO")
 	private Date fechaNacimiento;
+	
+	/*Vinculación a la entidad Dirección, ocupando CascadeType.ALL para que en el momento en que se elimine la 
+	 * entidad principal, tambien se elimine la derivada (se borra el empleado y por consecuente su direccion asociada*/
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name = "ID_DIRECCION")
+	private Direccion direccion;
 	
 	public Empleado(){
 		
@@ -69,11 +80,19 @@ public class Empleado implements Serializable{
 	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
+	
+	public Direccion getDireccion() {
+		return direccion;
+	}
+	
+	public void setDireccion(Direccion direccion) {
+		this.direccion = direccion;
+	}
 
 	@Override
 	public String toString() {
 		return "Empleado [codigo=" + codigo + ", apellidos=" + apellidos
 				+ ", nombre=" + nombre + ", fechaNacimiento=" + fechaNacimiento
-				+ "]";
-	}	
+				+ ", direccion=" + direccion + "]";
+	}		
 }
